@@ -1,0 +1,3002 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "datafactoryovb3l52odgq34"
+		},
+		"ArmtemplateStorageLinkedService_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ArmtemplateStorageLinkedService'"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
+		},
+		"AzureDataLakeStorage2_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage2'"
+		},
+		"AzureDataLakeStorage3_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage3'"
+		},
+		"AzureDataLakeStorage4_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage4'"
+		},
+		"AzureDataLakeStorage5_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage5'"
+		},
+		"AzureDataLakeStorage6_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage6'"
+		},
+		"AzureFunction1_functionKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'functionKey' of 'AzureFunction1'"
+		},
+		"AzureFunction10_functionKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'functionKey' of 'AzureFunction10'"
+		},
+		"AzureFunction11_functionKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'functionKey' of 'AzureFunction11'"
+		},
+		"AzureFunction12_functionKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'functionKey' of 'AzureFunction12'"
+		},
+		"AzureFunction13_functionKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'functionKey' of 'AzureFunction13'"
+		},
+		"AzureFunction14_functionKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'functionKey' of 'AzureFunction14'"
+		},
+		"AzureFunction15_functionKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'functionKey' of 'AzureFunction15'"
+		},
+		"AzureFunction16_functionKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'functionKey' of 'AzureFunction16'"
+		},
+		"AzureFunction17_functionKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'functionKey' of 'AzureFunction17'"
+		},
+		"AzureFunction2_functionKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'functionKey' of 'AzureFunction2'"
+		},
+		"AzureFunction3_functionKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'functionKey' of 'AzureFunction3'"
+		},
+		"AzureFunction4_functionKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'functionKey' of 'AzureFunction4'"
+		},
+		"AzureFunction5_functionKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'functionKey' of 'AzureFunction5'"
+		},
+		"AzureFunction6_functionKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'functionKey' of 'AzureFunction6'"
+		},
+		"AzureFunction7_functionKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'functionKey' of 'AzureFunction7'"
+		},
+		"AzureFunction8_functionKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'functionKey' of 'AzureFunction8'"
+		},
+		"AzureFunction9_functionKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'functionKey' of 'AzureFunction9'"
+		},
+		"Cen_Content_Download_functionKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'functionKey' of 'Cen_Content_Download'"
+		},
+		"Cen_ProjectsData_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'Cen_ProjectsData'"
+		},
+		"CenelecPublicationData_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'CenelecPublicationData'"
+		},
+		"Cenelec_Projects_Data_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'Cenelec_Projects_Data'"
+		},
+		"SourcePathofDataLakeForZip_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'SourcePathofDataLakeForZip'"
+		},
+		"ZipContentFiles_functionKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'functionKey' of 'ZipContentFiles'"
+		},
+		"ZipFiles_functionKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'functionKey' of 'ZipFiles'"
+		},
+		"cenelec_content_download_functionKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'functionKey' of 'cenelec_content_download'"
+		},
+		"ls_ISO_Projects_Destination_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_ISO_Projects_Destination'"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://bsiuksadlgen2dev.dfs.core.windows.net"
+		},
+		"AzureDataLakeStorage2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://bsiuksadlgen2dev.dfs.core.windows.net"
+		},
+		"AzureDataLakeStorage3_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://bsiuksadlgen2dev.dfs.core.windows.net"
+		},
+		"AzureDataLakeStorage4_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://bsiuksadlgen2dev.dfs.core.windows.net"
+		},
+		"AzureDataLakeStorage5_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://bsiuksadlgen2dev.dfs.core.windows.net"
+		},
+		"AzureDataLakeStorage6_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://bsiuksadlgen2dev.dfs.core.windows.net"
+		},
+		"AzureFunction1_properties_typeProperties_functionAppUrl": {
+			"type": "string",
+			"defaultValue": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net/api/Download_ISO_PublicationData?code=vw0ixnAe0flCrGPZEaVoMuF7ty83ZMhbzuiDw59In5syPGYD4TKuMg=="
+		},
+		"AzureFunction10_properties_typeProperties_functionAppUrl": {
+			"type": "string",
+			"defaultValue": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net"
+		},
+		"AzureFunction11_properties_typeProperties_functionAppUrl": {
+			"type": "string",
+			"defaultValue": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net"
+		},
+		"AzureFunction12_properties_typeProperties_functionAppUrl": {
+			"type": "string",
+			"defaultValue": "https://bsi-uks-funcapp-fmapp02.azurewebsites.net"
+		},
+		"AzureFunction13_properties_typeProperties_functionAppUrl": {
+			"type": "string",
+			"defaultValue": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net"
+		},
+		"AzureFunction14_properties_typeProperties_functionAppUrl": {
+			"type": "string",
+			"defaultValue": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net"
+		},
+		"AzureFunction15_properties_typeProperties_functionAppUrl": {
+			"type": "string",
+			"defaultValue": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net"
+		},
+		"AzureFunction16_properties_typeProperties_functionAppUrl": {
+			"type": "string",
+			"defaultValue": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net"
+		},
+		"AzureFunction17_properties_typeProperties_functionAppUrl": {
+			"type": "string",
+			"defaultValue": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net"
+		},
+		"AzureFunction2_properties_typeProperties_functionAppUrl": {
+			"type": "string",
+			"defaultValue": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net"
+		},
+		"AzureFunction3_properties_typeProperties_functionAppUrl": {
+			"type": "string",
+			"defaultValue": "https://bsi-uks-funcapp-fmapp02.azurewebsites.net"
+		},
+		"AzureFunction4_properties_typeProperties_functionAppUrl": {
+			"type": "string",
+			"defaultValue": "https://bsi-uks-funcapp-fmapp02.azurewebsites.net"
+		},
+		"AzureFunction5_properties_typeProperties_functionAppUrl": {
+			"type": "string",
+			"defaultValue": "https://bsi-uks-funcapp-fmapp02.azurewebsites.net"
+		},
+		"AzureFunction6_properties_typeProperties_functionAppUrl": {
+			"type": "string",
+			"defaultValue": "https://bsi-uks-funcapp-fmapp02.azurewebsites.net"
+		},
+		"AzureFunction7_properties_typeProperties_functionAppUrl": {
+			"type": "string",
+			"defaultValue": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net"
+		},
+		"AzureFunction8_properties_typeProperties_functionAppUrl": {
+			"type": "string",
+			"defaultValue": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net"
+		},
+		"AzureFunction9_properties_typeProperties_functionAppUrl": {
+			"type": "string",
+			"defaultValue": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net"
+		},
+		"Cen_Content_Download_properties_typeProperties_functionAppUrl": {
+			"type": "string",
+			"defaultValue": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net"
+		},
+		"Cen_ProjectsData_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://bsiuksadlgen2dev.dfs.core.windows.net"
+		},
+		"CenelecPublicationData_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://bsiuksadlgen2dev.dfs.core.windows.net"
+		},
+		"Cenelec_Projects_Data_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://bsiuksadlgen2dev.dfs.core.windows.net"
+		},
+		"HttpServer1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://api.iso.org/harmonized/projects"
+		},
+		"HttpServer2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://api-test.iso.org/harmonized/projects"
+		},
+		"ISO_Publication_RestEndPoint_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://api.iso.org/harmonized/publications"
+		},
+		"Iso_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://api.iso.org/harmonized/projects"
+		},
+		"PublicationDataLink_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://api.iso.org/harmonized/publications"
+		},
+		"RestService1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://api.cen.eu/harmonized/publications"
+		},
+		"SourcePathofDataLakeForZip_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://bsiuksadlgen2dev.dfs.core.windows.net"
+		},
+		"TestingRest_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "http://dummy.restapiexample.com/api/v1/employees"
+		},
+		"ZipContentFiles_properties_typeProperties_functionAppUrl": {
+			"type": "string",
+			"defaultValue": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net"
+		},
+		"ZipFiles_properties_typeProperties_functionAppUrl": {
+			"type": "string",
+			"defaultValue": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net"
+		},
+		"cenelec_content_download_properties_typeProperties_functionAppUrl": {
+			"type": "string",
+			"defaultValue": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net"
+		},
+		"downloadPdf_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://data.iso.org/publications/std/dms/89739122"
+		},
+		"ls_Cen_Projects_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://api.cen.eu/harmonized/projects"
+		},
+		"ls_Cenelec_Publication_URI_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://api.cenelec.eu/harmonized/publications"
+		},
+		"ls_Cenelec_Rest_Uri_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://api.cenelec.eu/harmonized/publications"
+		},
+		"ls_ISO_All_Projects_Uri_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://api.iso.org/harmonized/projects"
+		},
+		"ls_ISO_Projects_Destination_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://bsiuksadlgen2dev.dfs.core.windows.net"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/Cen-Demo-Pipiline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Cen_Request",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-01.uksouth.logic.azure.com:443/workflows/187fd6c3e20641eaac70e0c55ea25c88/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=vX3UiFyKbxaR3h8gsb732onSjBCcMs467rhYlTHWF5Y",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"value": "@pipeline().globalParameters.CenRequestParameter",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Get_Iec_Content",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "AddOrphanPublications",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "Download_Cen_PublicationData",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"name": "cen"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "Cen_Content_Download",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "AddOrphanProjects",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "Cen_Request",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "AddOrphanHAPIProject",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoDirectory": "cen",
+								"destinationContainer": "ingeststagingstore",
+								"sourceContainer": "ingeststagingstore",
+								"sdoAuthEndPoint": "https://api.cen.eu/oauth/client_credential/accesstoken?grant_type=client_credentials",
+								"sdoClientId": "2s0ASAGt4PcrNClMKZk31litwhtKikep",
+								"sdoSecret": "6A89sQiDyCvBiIn6",
+								"sdoDataEndPoint": "https://api.cen.eu/harmonized/projects"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureFunction3",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "AddOrphanPublications",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "AddOrphanProjects",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "AddOrphanHAPIPublication",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoDirectory": "cen",
+								"destinationContainer": "ingeststagingstore",
+								"sourceContainer": "ingeststagingstore",
+								"sdoAuthEndPoint": "https://api.cen.eu/oauth/client_credential/accesstoken?grant_type=client_credentials",
+								"sdoClientId": "2s0ASAGt4PcrNClMKZk31litwhtKikep",
+								"sdoSecret": "6A89sQiDyCvBiIn6",
+								"sdoDataEndPoint": "https://api.cen.eu/harmonized/publications"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureFunction4",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "TransformToNormalizedData",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "ValidateHapiSource",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-18.uksouth.logic.azure.com/workflows/2bd4ffb477e748a6b7262177af50210d/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=uMwdXiRFiwP_NkIAj97o17Q-DMYsyTzQGZGNAWfySsA",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoDirectory": "cen"
+							}
+						}
+					},
+					{
+						"name": "Zip Files",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "TransformToNormalizedData",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "ZipCenFiles",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"name": "cen"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureFunction15",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "ValidateHapiSource",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Get_Iec_Content",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-21.uksouth.logic.azure.com:443/workflows/1098dafc27cd42bfb195ae2f6dcf00b9/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=WDSaHzhRLjt2vOjO6hSt3PlW4OM6pQYOMWykCfD2kMU",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdo": "cen",
+								"projectXsdPath": "xsd/sdo/projects/harmonized-projects.xsd",
+								"publicationXsdPath": "xsd/sdo/publications/harmonized-publications.xsd"
+							}
+						}
+					},
+					{
+						"name": "Poke-Api",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Zip Files",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-18.uksouth.logic.azure.com:443/workflows/00e2fe031d8443079468a8648066d3e5/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=77EUGLgnyuORgx2KSPPoZdt6wFmHsx5OtS1O9uLSu8A",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoName": "cen",
+								"resourceUriProjects": "/iec:proj:62085",
+								"resourceUriPublications": "?projectUrn=iec:proj:62085"
+							}
+						}
+					}
+				],
+				"annotations": [],
+				"lastPublishTime": "2020-09-30T17:37:44Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Cen_Content_Download')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureFunction3')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureFunction4')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureFunction15')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Cenelec-Demo-Pipiline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Cenelec_Request",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-01.uksouth.logic.azure.com:443/workflows/187fd6c3e20641eaac70e0c55ea25c88/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=vX3UiFyKbxaR3h8gsb732onSjBCcMs467rhYlTHWF5Y",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoName": "cenelec",
+								"resourceUriProjects": "?lastChangeTimestampFrom=2010-10-05&size=10&page=0",
+								"resourceUriPublications": "?lastChangeTimestampFrom=2010-10-05&size=10&page=0"
+							}
+						}
+					},
+					{
+						"name": "Get_Iec_Content",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "AddOrphanPublications",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "Download_Cenelec_PublicationData",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"name": "cenelec"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "cenelec_content_download",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "AddOrphanProjects",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "Cenelec_Request",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "AddOrphanHAPIProject",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoDirectory": "cenelec",
+								"destinationContainer": "ingeststagingstore",
+								"sourceContainer": "ingeststagingstore",
+								"sdoAuthEndPoint": "https://api.cenelec.eu/oauth/client_credential/accesstoken?grant_type=client_credentials",
+								"sdoClientId": "OHdIwrh6UTt7La6k5eqcU00ANXXKROKr",
+								"sdoSecret": "FmrVANmP5CJXuVWd",
+								"sdoDataEndPoint": "https://api.cenelec.eu/harmonized/projects"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureFunction3",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "AddOrphanPublications",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "AddOrphanProjects",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "AddOrphanHAPIPublication",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoDirectory": "cenelec",
+								"destinationContainer": "ingeststagingstore",
+								"sourceContainer": "ingeststagingstore",
+								"sdoAuthEndPoint": "https://api.cenelec.eu/oauth/client_credential/accesstoken?grant_type=client_credentials",
+								"sdoClientId": "OHdIwrh6UTt7La6k5eqcU00ANXXKROKr",
+								"sdoSecret": "FmrVANmP5CJXuVWd",
+								"sdoDataEndPoint": "https://api.cenelec.eu/harmonized/publications"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureFunction4",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "TransformToNormalizedData",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "ValidateHapiSource",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-18.uksouth.logic.azure.com/workflows/2bd4ffb477e748a6b7262177af50210d/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=uMwdXiRFiwP_NkIAj97o17Q-DMYsyTzQGZGNAWfySsA",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoDirectory": "cenelec"
+							}
+						}
+					},
+					{
+						"name": "Zip Files",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "TransformToNormalizedData",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "ZipCenelecFiles",
+							"method": "POST",
+							"headers": {},
+							"body": {
+								"name": "cenelec"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureFunction17",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "ValidateHapiSource",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Get_Iec_Content",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-21.uksouth.logic.azure.com:443/workflows/1098dafc27cd42bfb195ae2f6dcf00b9/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=WDSaHzhRLjt2vOjO6hSt3PlW4OM6pQYOMWykCfD2kMU",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdo": "cenelec",
+								"projectXsdPath": "xsd/sdo/projects/harmonized-projects.xsd",
+								"publicationXsdPath": "xsd/sdo/publications/harmonized-publications.xsd"
+							}
+						}
+					},
+					{
+						"name": "Poke-Api",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Zip Files",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-18.uksouth.logic.azure.com:443/workflows/00e2fe031d8443079468a8648066d3e5/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=77EUGLgnyuORgx2KSPPoZdt6wFmHsx5OtS1O9uLSu8A",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoName": "cenelec",
+								"resourceUriProjects": "/iec:proj:62085",
+								"resourceUriPublications": "?projectUrn=iec:proj:62085"
+							}
+						}
+					}
+				],
+				"annotations": [],
+				"lastPublishTime": "2020-09-30T17:37:44Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/cenelec_content_download')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureFunction3')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureFunction4')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureFunction17')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Iec-Demo-Pipiline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Iec_Request",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-01.uksouth.logic.azure.com:443/workflows/187fd6c3e20641eaac70e0c55ea25c88/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=vX3UiFyKbxaR3h8gsb732onSjBCcMs467rhYlTHWF5Y",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"value": "@pipeline().globalParameters.IecRequestParameter",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Get_Iec_Content",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "AddOrphanPublications",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "Download_IEC_PublicationData",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"name": "iec"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureFunction13",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "AddOrphanProjects",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "Iec_Request",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "AddOrphanHAPIProject",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoDirectory": "iec",
+								"destinationContainer": "ingeststagingstore",
+								"sourceContainer": "ingeststagingstore",
+								"sdoAuthEndPoint": "https://api.iec.ch/oauth/client_credential/accesstoken?grant_type=client_credentials",
+								"sdoClientId": "NBuRlOpinFGLGUEofgVXeaZXXF1Dodi6",
+								"sdoSecret": "Htm5c1FC7LCguLN9",
+								"sdoDataEndPoint": "https://api.iec.ch/harmonized/projects"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureFunction3",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "AddOrphanPublications",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "AddOrphanProjects",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "AddOrphanHAPIPublication",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoDirectory": "iec",
+								"destinationContainer": "ingeststagingstore",
+								"sourceContainer": "ingeststagingstore",
+								"sdoAuthEndPoint": "https://api.iec.ch/oauth/client_credential/accesstoken?grant_type=client_credentials",
+								"sdoClientId": "NBuRlOpinFGLGUEofgVXeaZXXF1Dodi6",
+								"sdoSecret": "Htm5c1FC7LCguLN9",
+								"sdoDataEndPoint": "https://api.iec.ch/harmonized/publications"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureFunction4",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "TransformToNormalizedData",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "ValidateHapiSource",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-18.uksouth.logic.azure.com/workflows/2bd4ffb477e748a6b7262177af50210d/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=uMwdXiRFiwP_NkIAj97o17Q-DMYsyTzQGZGNAWfySsA",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoDirectory": "iec"
+							}
+						}
+					},
+					{
+						"name": "Zip Files",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "TransformToNormalizedData",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "ZipIecFiles",
+							"method": "POST",
+							"headers": {},
+							"body": {
+								"name": "iec"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureFunction8",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "ValidateHapiSource",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Get_Iec_Content",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-21.uksouth.logic.azure.com:443/workflows/1098dafc27cd42bfb195ae2f6dcf00b9/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=WDSaHzhRLjt2vOjO6hSt3PlW4OM6pQYOMWykCfD2kMU",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdo": "iec",
+								"projectXsdPath": "xsd/sdo/projects/harmonized-projects.xsd",
+								"publicationXsdPath": "xsd/sdo/publications/harmonized-publications.xsd"
+							}
+						}
+					},
+					{
+						"name": "Poke-Api",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Zip Files",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-18.uksouth.logic.azure.com:443/workflows/00e2fe031d8443079468a8648066d3e5/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=77EUGLgnyuORgx2KSPPoZdt6wFmHsx5OtS1O9uLSu8A",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoName": "iec",
+								"resourceUriProjects": "/iec:proj:62085",
+								"resourceUriPublications": "?projectUrn=iec:proj:62085"
+							}
+						}
+					}
+				],
+				"annotations": [],
+				"lastPublishTime": "2020-09-30T17:37:44Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureFunction13')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureFunction3')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureFunction4')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureFunction8')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Iso-Demo-Pipiline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Iso_Request",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-01.uksouth.logic.azure.com:443/workflows/187fd6c3e20641eaac70e0c55ea25c88/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=vX3UiFyKbxaR3h8gsb732onSjBCcMs467rhYlTHWF5Y",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"value": "@pipeline().parameters.requestParameter",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Get_Iso_Content",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "AddOrphanPublications",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "Download_ISO_PublicationData",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"name": "iso"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureFunction1",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "AddOrphanProjects",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "Iso_Request",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "AddOrphanHAPIProject",
+							"method": "POST",
+							"headers": {},
+							"body": {
+								"sdoDirectory": "iso",
+								"destinationContainer": "ingeststagingstore",
+								"sourceContainer": "ingeststagingstore",
+								"sdoAuthEndPoint": "https://api.iso.org/oauth/client_credential/accesstoken?grant_type=client_credentials",
+								"sdoClientId": "XkbKTqFdF2QaxU3yYV0ENmtV7nIeRpYD",
+								"sdoSecret": "bAdLnvU18nx5ZDyv",
+								"sdoDataEndPoint": "https://api.iso.org/harmonized/projects"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureFunction3",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "AddOrphanPublications",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "AddOrphanProjects",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "AddOrphanHAPIPublication",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoDirectory": "iso",
+								"destinationContainer": "ingeststagingstore",
+								"sourceContainer": "ingeststagingstore",
+								"sdoAuthEndPoint": "https://api.iso.org/oauth/client_credential/accesstoken?grant_type=client_credentials",
+								"sdoClientId": "XkbKTqFdF2QaxU3yYV0ENmtV7nIeRpYD",
+								"sdoSecret": "bAdLnvU18nx5ZDyv",
+								"sdoDataEndPoint": "https://api.iso.org/harmonized/publications"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureFunction4",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "TransformToNormalizedData",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "ValidateHapiSource",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-18.uksouth.logic.azure.com/workflows/2bd4ffb477e748a6b7262177af50210d/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=uMwdXiRFiwP_NkIAj97o17Q-DMYsyTzQGZGNAWfySsA",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoDirectory": "iso"
+							}
+						}
+					},
+					{
+						"name": "Zip Files",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "QualityCheck",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "ZipIsoFiles",
+							"method": "POST",
+							"headers": {},
+							"body": {
+								"name": "iso"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureFunction7",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "ValidateHapiSource",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Get_Iso_Content",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-21.uksouth.logic.azure.com:443/workflows/1098dafc27cd42bfb195ae2f6dcf00b9/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=WDSaHzhRLjt2vOjO6hSt3PlW4OM6pQYOMWykCfD2kMU",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdo": "iso",
+								"projectXsdPath": "xsd/sdo/projects/harmonized-projects.xsd",
+								"publicationXsdPath": "xsd/sdo/publications/harmonized-publications.xsd"
+							}
+						}
+					},
+					{
+						"name": "Poke-Api",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Zip Files",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-18.uksouth.logic.azure.com:443/workflows/00e2fe031d8443079468a8648066d3e5/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=77EUGLgnyuORgx2KSPPoZdt6wFmHsx5OtS1O9uLSu8A",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdo": "iso"
+							}
+						}
+					},
+					{
+						"name": "QualityCheck",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "TransformToNormalizedData",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-31.uksouth.logic.azure.com:443/workflows/1d2657978307432eafc4909ed5922d6d/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=fbFoGMABJfWmckFxSu2DKycmjUwgQQ36wVZkEBe4BGQ",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoDirectory": "iso",
+								"configurationContainer": "configuration",
+								"normalisedXsdPath": "xsd/mm/ProjectProduct_Normalize_Feed_v1.1.xsd",
+								"qualityMarkerXslPath": "xslt/IngestMM/v1/schematron_validity.xsl",
+								"schematronXslPath": "xslt/IngestMM/v1/hapi_consolidated.xslt"
+							}
+						}
+					}
+				],
+				"parameters": {
+					"requestParameter": {
+						"type": "string",
+						"defaultValue": {
+							"sdoName": "iso",
+							"resourceUriProjects": "?lastChangeTimestampFrom=2016-10-05&size=5&page=0",
+							"resourceUriPublications": "?lastChangeTimestampFrom=2016-10-05&size=5&page=0"
+						}
+					}
+				},
+				"annotations": [],
+				"lastPublishTime": "2020-09-30T17:37:44Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureFunction1')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureFunction3')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureFunction4')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureFunction7')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ArmtemplateTestDatasetIn')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ArmtemplateStorageLinkedService",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "emp.txt",
+						"folderPath": "input",
+						"container": "blobovb3l52odgq34"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ArmtemplateStorageLinkedService')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ArmtemplateTestDatasetOut')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ArmtemplateStorageLinkedService",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"folderPath": "output",
+						"container": "blobovb3l52odgq34"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ArmtemplateStorageLinkedService')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Binary1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage5",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "test",
+						"folderPath": "Staging",
+						"fileSystem": "export"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage5')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Binary2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage6",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "iso/zipContent",
+						"fileSystem": "debug"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage6')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CEN_Projects_RestEndpoint')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_Cen_Projects",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {
+					"relativeUrl": ""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_Cen_Projects')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Cen_Publication')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage4",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Cen-Publications.json",
+						"folderPath": "Staging/Cen/Json",
+						"fileSystem": "export"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage4')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Cenelec_ProjectData')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Cenelec_Projects_Data",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Cenelec_Projects.json",
+						"folderPath": "Staging/Cenelec/Json",
+						"fileSystem": "export"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Cenelec_Projects_Data')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Cenelec_Publication')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "CenelecPublicationData",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Cenelec_Publication.json",
+						"folderPath": "Staging/cenelec/json",
+						"fileSystem": "export"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/CenelecPublicationData')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Cenelec_Publication_Uri')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_Cenelec_Publication_URI",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_Cenelec_Publication_URI')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Cenelec_Source_Uri')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_Cenelec_Rest_Uri",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_Cenelec_Rest_Uri')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DestinationDataset_b8r')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage3",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Iso",
+						"fileSystem": "export"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage3')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DestinationDataset_o13')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage3",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "testProjects.xml",
+						"folderPath": "Staging",
+						"fileSystem": "export"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage3')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ISO_Projects_Json')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Iso Projects Json",
+				"linkedServiceName": {
+					"referenceName": "ls_ISO_Projects_Destination",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Iso-projects.json",
+						"folderPath": "Staging/ISO/Json",
+						"fileSystem": "export"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_ISO_Projects_Destination')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ISO_Projects_RestEndpoint')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_ISO_All_Projects_Uri",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_ISO_All_Projects_Uri')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ISO_Publication_Json')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_ISO_Projects_Destination",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Iso_Publications.Json",
+						"folderPath": "Staging/ISO/Json",
+						"fileSystem": "export"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_ISO_Projects_Destination')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ISO_Publication_RestEndPoint')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ISO_Publication_RestEndPoint",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ISO_Publication_RestEndPoint')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Json1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Cen_ProjectsData",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Projects.json",
+						"folderPath": "Staging/Cen/Json",
+						"fileSystem": "export"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Cen_ProjectsData')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/RestResource')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Connection to your REST/HTTP",
+				"linkedServiceName": {
+					"referenceName": "Iso",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Iso')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/RestResource1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Connection to your REST/HTTP",
+				"linkedServiceName": {
+					"referenceName": "Iso",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Iso')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/RestResource2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "PublicationDataLink",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/PublicationDataLink')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/RestResource3')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "downloadPdf",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/downloadPdf')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/RestResource4')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "RestService1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {
+					"relativeUrl": ""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/RestService1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SinkDataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Connection to your Azure Data Lake Store",
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage3",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"Container": {
+						"type": "string"
+					},
+					"Directory": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": {
+							"value": "@dataset().Directory",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().Container",
+							"type": "Expression"
+						}
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage3')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SinkDataset1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Connection to your Azure Data Lake Store",
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage3",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"Container": {
+						"type": "string"
+					},
+					"Directory": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": {
+							"value": "@dataset().Directory",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().Container",
+							"type": "Expression"
+						}
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage3')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SourceDataToZip')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SourcePathofDataLakeForZip",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "iso/content",
+						"fileSystem": "debug"
+					},
+					"compression": {
+						"type": "ZipDeflate"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/SourcePathofDataLakeForZip')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SourceDataset_b8r')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "TestingRest",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/TestingRest')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SourceDataset_o13')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "TestingRest",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/TestingRest')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Xml1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "HttpServer1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Xml",
+				"typeProperties": {
+					"location": {
+						"type": "HttpServerLocation"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/HttpServer1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ArmtemplateStorageLinkedService')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('ArmtemplateStorageLinkedService_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('AzureDataLakeStorage2_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDataLakeStorage2_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage3')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('AzureDataLakeStorage3_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDataLakeStorage3_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage4')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('AzureDataLakeStorage4_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDataLakeStorage4_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage5')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('AzureDataLakeStorage5_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDataLakeStorage5_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage6')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('AzureDataLakeStorage6_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDataLakeStorage6_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureFunction1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureFunction",
+				"typeProperties": {
+					"functionAppUrl": "[parameters('AzureFunction1_properties_typeProperties_functionAppUrl')]",
+					"functionKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureFunction1_functionKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureFunction10')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureFunction",
+				"typeProperties": {
+					"functionAppUrl": "[parameters('AzureFunction10_properties_typeProperties_functionAppUrl')]",
+					"functionKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureFunction10_functionKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureFunction11')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureFunction",
+				"typeProperties": {
+					"functionAppUrl": "[parameters('AzureFunction11_properties_typeProperties_functionAppUrl')]",
+					"functionKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureFunction11_functionKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureFunction12')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureFunction",
+				"typeProperties": {
+					"functionAppUrl": "[parameters('AzureFunction12_properties_typeProperties_functionAppUrl')]",
+					"functionKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureFunction12_functionKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureFunction13')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureFunction",
+				"typeProperties": {
+					"functionAppUrl": "[parameters('AzureFunction13_properties_typeProperties_functionAppUrl')]",
+					"functionKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureFunction13_functionKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureFunction14')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureFunction",
+				"typeProperties": {
+					"functionAppUrl": "[parameters('AzureFunction14_properties_typeProperties_functionAppUrl')]",
+					"functionKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureFunction14_functionKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureFunction15')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureFunction",
+				"typeProperties": {
+					"functionAppUrl": "[parameters('AzureFunction15_properties_typeProperties_functionAppUrl')]",
+					"functionKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureFunction15_functionKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureFunction16')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureFunction",
+				"typeProperties": {
+					"functionAppUrl": "[parameters('AzureFunction16_properties_typeProperties_functionAppUrl')]",
+					"functionKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureFunction16_functionKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureFunction17')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureFunction",
+				"typeProperties": {
+					"functionAppUrl": "[parameters('AzureFunction17_properties_typeProperties_functionAppUrl')]",
+					"functionKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureFunction17_functionKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureFunction2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureFunction",
+				"typeProperties": {
+					"functionAppUrl": "[parameters('AzureFunction2_properties_typeProperties_functionAppUrl')]",
+					"functionKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureFunction2_functionKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureFunction3')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureFunction",
+				"typeProperties": {
+					"functionAppUrl": "[parameters('AzureFunction3_properties_typeProperties_functionAppUrl')]",
+					"functionKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureFunction3_functionKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureFunction4')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureFunction",
+				"typeProperties": {
+					"functionAppUrl": "[parameters('AzureFunction4_properties_typeProperties_functionAppUrl')]",
+					"functionKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureFunction4_functionKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureFunction5')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureFunction",
+				"typeProperties": {
+					"functionAppUrl": "[parameters('AzureFunction5_properties_typeProperties_functionAppUrl')]",
+					"functionKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureFunction5_functionKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureFunction6')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureFunction",
+				"typeProperties": {
+					"functionAppUrl": "[parameters('AzureFunction6_properties_typeProperties_functionAppUrl')]",
+					"functionKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureFunction6_functionKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureFunction7')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureFunction",
+				"typeProperties": {
+					"functionAppUrl": "[parameters('AzureFunction7_properties_typeProperties_functionAppUrl')]",
+					"functionKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureFunction7_functionKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureFunction8')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureFunction",
+				"typeProperties": {
+					"functionAppUrl": "[parameters('AzureFunction8_properties_typeProperties_functionAppUrl')]",
+					"functionKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureFunction8_functionKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureFunction9')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureFunction",
+				"typeProperties": {
+					"functionAppUrl": "[parameters('AzureFunction9_properties_typeProperties_functionAppUrl')]",
+					"functionKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureFunction9_functionKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Cen_Content_Download')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureFunction",
+				"typeProperties": {
+					"functionAppUrl": "[parameters('Cen_Content_Download_properties_typeProperties_functionAppUrl')]",
+					"functionKey": {
+						"type": "SecureString",
+						"value": "[parameters('Cen_Content_Download_functionKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Cen_ProjectsData')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('Cen_ProjectsData_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('Cen_ProjectsData_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CenelecPublicationData')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('CenelecPublicationData_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('CenelecPublicationData_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Cenelec_Projects_Data')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('Cenelec_Projects_Data_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('Cenelec_Projects_Data_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/HttpServer1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "HttpServer",
+				"typeProperties": {
+					"url": "[parameters('HttpServer1_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/HttpServer2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "HttpServer",
+				"typeProperties": {
+					"url": "[parameters('HttpServer2_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ISO_Publication_RestEndPoint')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Iso Publication data",
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('ISO_Publication_RestEndPoint_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Iso')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Iso api with user name and password",
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('Iso_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": false,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PublicationDataLink')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('PublicationDataLink_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/RestService1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('RestService1_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SourcePathofDataLakeForZip')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('SourcePathofDataLakeForZip_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('SourcePathofDataLakeForZip_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/TestingRest')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('TestingRest_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ZipContentFiles')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureFunction",
+				"typeProperties": {
+					"functionAppUrl": "[parameters('ZipContentFiles_properties_typeProperties_functionAppUrl')]",
+					"functionKey": {
+						"type": "SecureString",
+						"value": "[parameters('ZipContentFiles_functionKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ZipFiles')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureFunction",
+				"typeProperties": {
+					"functionAppUrl": "[parameters('ZipFiles_properties_typeProperties_functionAppUrl')]",
+					"functionKey": {
+						"type": "SecureString",
+						"value": "[parameters('ZipFiles_functionKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/cenelec_content_download')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureFunction",
+				"typeProperties": {
+					"functionAppUrl": "[parameters('cenelec_content_download_properties_typeProperties_functionAppUrl')]",
+					"functionKey": {
+						"type": "SecureString",
+						"value": "[parameters('cenelec_content_download_functionKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/downloadPdf')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('downloadPdf_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_Cen_Projects')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('ls_Cen_Projects_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_Cenelec_Publication_URI')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('ls_Cenelec_Publication_URI_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_Cenelec_Rest_Uri')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('ls_Cenelec_Rest_Uri_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_ISO_All_Projects_Uri')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Source Uri to get projects data from ISO ",
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('ls_ISO_All_Projects_Uri_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_ISO_Projects_Destination')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Store the Projects Json file from ISO to the data lake",
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('ls_ISO_Projects_Destination_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('ls_ISO_Projects_Destination_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CenTrigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "Cen-Demo-Pipiline",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Hour",
+						"interval": 1,
+						"startTime": "2020-09-24T14:33:00Z",
+						"endTime": "2020-09-25T14:33:00Z",
+						"timeZone": "UTC"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/Cen-Demo-Pipiline')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CenelecTrigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "Cenelec-Demo-Pipiline",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Hour",
+						"interval": 1,
+						"startTime": "2020-09-24T14:37:00Z",
+						"endTime": "2020-09-25T14:37:00Z",
+						"timeZone": "UTC"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/Cenelec-Demo-Pipiline')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/IEC_Trigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "Iec-Demo-Pipiline",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Hour",
+						"interval": 1,
+						"startTime": "2020-09-24T14:38:00Z",
+						"endTime": "2020-09-25T14:38:00Z",
+						"timeZone": "UTC"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/Iec-Demo-Pipiline')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/IsoTrigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "Iso-Demo-Pipiline",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Hour",
+						"interval": 1,
+						"startTime": "2020-09-24T14:38:00Z",
+						"timeZone": "UTC"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/Iso-Demo-Pipiline')]"
+			]
+		}
+	]
+}

@@ -1,0 +1,1502 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "datafactoryovb3l52odgq34"
+		},
+		"ls_ISO_Projects_Destination_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_ISO_Projects_Destination'"
+		},
+		"ls_Cen_Projects_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://api.cen.eu/harmonized/projects"
+		},
+		"ls_Cenelec_Publication_URI_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://api.cenelec.eu/harmonized/publications"
+		},
+		"ls_Cenelec_Rest_Uri_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://api.cenelec.eu/harmonized/publications"
+		},
+		"ls_ISO_All_Projects_Uri_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://api.iso.org/harmonized/projects"
+		},
+		"ls_ISO_Projects_Destination_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://bsiuksadlgen2dev.dfs.core.windows.net"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_Cen_Projects')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('ls_Cen_Projects_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_Cenelec_Publication_URI')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('ls_Cenelec_Publication_URI_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_Cenelec_Rest_Uri')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('ls_Cenelec_Rest_Uri_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_ISO_All_Projects_Uri')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Source Uri to get projects data from ISO ",
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('ls_ISO_All_Projects_Uri_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_ISO_Projects_Destination')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Store the Projects Json file from ISO to the data lake",
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('ls_ISO_Projects_Destination_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('ls_ISO_Projects_Destination_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Cen-Demo-Pipiline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Cen_Request",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-01.uksouth.logic.azure.com:443/workflows/187fd6c3e20641eaac70e0c55ea25c88/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=vX3UiFyKbxaR3h8gsb732onSjBCcMs467rhYlTHWF5Y",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"value": "@pipeline().globalParameters.CenRequestParameter",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Get_Iec_Content",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "AddOrphanPublications",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "Download_Cen_PublicationData",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"name": "cen"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "Cen_Content_Download",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "AddOrphanProjects",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "Cen_Request",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "AddOrphanHAPIProject",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoDirectory": "cen",
+								"destinationContainer": "ingeststagingstore",
+								"sourceContainer": "ingeststagingstore",
+								"sdoAuthEndPoint": "https://api.cen.eu/oauth/client_credential/accesstoken?grant_type=client_credentials",
+								"sdoClientId": "2s0ASAGt4PcrNClMKZk31litwhtKikep",
+								"sdoSecret": "6A89sQiDyCvBiIn6",
+								"sdoDataEndPoint": "https://api.cen.eu/harmonized/projects"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureFunction3",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "AddOrphanPublications",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "AddOrphanProjects",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "AddOrphanHAPIPublication",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoDirectory": "cen",
+								"destinationContainer": "ingeststagingstore",
+								"sourceContainer": "ingeststagingstore",
+								"sdoAuthEndPoint": "https://api.cen.eu/oauth/client_credential/accesstoken?grant_type=client_credentials",
+								"sdoClientId": "2s0ASAGt4PcrNClMKZk31litwhtKikep",
+								"sdoSecret": "6A89sQiDyCvBiIn6",
+								"sdoDataEndPoint": "https://api.cen.eu/harmonized/publications"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureFunction4",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "TransformToNormalizedData",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "ValidateHapiSource",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-18.uksouth.logic.azure.com/workflows/2bd4ffb477e748a6b7262177af50210d/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=uMwdXiRFiwP_NkIAj97o17Q-DMYsyTzQGZGNAWfySsA",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoDirectory": "cen"
+							}
+						}
+					},
+					{
+						"name": "Zip Files",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "TransformToNormalizedData",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "ZipCenFiles",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"name": "cen"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureFunction15",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "ValidateHapiSource",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Get_Iec_Content",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-21.uksouth.logic.azure.com:443/workflows/1098dafc27cd42bfb195ae2f6dcf00b9/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=WDSaHzhRLjt2vOjO6hSt3PlW4OM6pQYOMWykCfD2kMU",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdo": "cen",
+								"projectXsdPath": "xsd/sdo/projects/harmonized-projects.xsd",
+								"publicationXsdPath": "xsd/sdo/publications/harmonized-publications.xsd"
+							}
+						}
+					},
+					{
+						"name": "Poke-Api",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Zip Files",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-18.uksouth.logic.azure.com:443/workflows/00e2fe031d8443079468a8648066d3e5/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=77EUGLgnyuORgx2KSPPoZdt6wFmHsx5OtS1O9uLSu8A",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoName": "cen",
+								"resourceUriProjects": "/iec:proj:62085",
+								"resourceUriPublications": "?projectUrn=iec:proj:62085"
+							}
+						}
+					}
+				],
+				"annotations": [],
+				"lastPublishTime": "2020-09-30T17:37:44Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Cenelec-Demo-Pipiline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Cenelec_Request",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-01.uksouth.logic.azure.com:443/workflows/187fd6c3e20641eaac70e0c55ea25c88/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=vX3UiFyKbxaR3h8gsb732onSjBCcMs467rhYlTHWF5Y",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoName": "cenelec",
+								"resourceUriProjects": "?lastChangeTimestampFrom=2010-10-05&size=10&page=0",
+								"resourceUriPublications": "?lastChangeTimestampFrom=2010-10-05&size=10&page=0"
+							}
+						}
+					},
+					{
+						"name": "Get_Iec_Content",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "AddOrphanPublications",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "Download_Cenelec_PublicationData",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"name": "cenelec"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "cenelec_content_download",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "AddOrphanProjects",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "Cenelec_Request",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "AddOrphanHAPIProject",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoDirectory": "cenelec",
+								"destinationContainer": "ingeststagingstore",
+								"sourceContainer": "ingeststagingstore",
+								"sdoAuthEndPoint": "https://api.cenelec.eu/oauth/client_credential/accesstoken?grant_type=client_credentials",
+								"sdoClientId": "OHdIwrh6UTt7La6k5eqcU00ANXXKROKr",
+								"sdoSecret": "FmrVANmP5CJXuVWd",
+								"sdoDataEndPoint": "https://api.cenelec.eu/harmonized/projects"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureFunction3",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "AddOrphanPublications",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "AddOrphanProjects",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "AddOrphanHAPIPublication",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoDirectory": "cenelec",
+								"destinationContainer": "ingeststagingstore",
+								"sourceContainer": "ingeststagingstore",
+								"sdoAuthEndPoint": "https://api.cenelec.eu/oauth/client_credential/accesstoken?grant_type=client_credentials",
+								"sdoClientId": "OHdIwrh6UTt7La6k5eqcU00ANXXKROKr",
+								"sdoSecret": "FmrVANmP5CJXuVWd",
+								"sdoDataEndPoint": "https://api.cenelec.eu/harmonized/publications"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureFunction4",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "TransformToNormalizedData",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "ValidateHapiSource",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-18.uksouth.logic.azure.com/workflows/2bd4ffb477e748a6b7262177af50210d/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=uMwdXiRFiwP_NkIAj97o17Q-DMYsyTzQGZGNAWfySsA",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoDirectory": "cenelec"
+							}
+						}
+					},
+					{
+						"name": "Zip Files",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "TransformToNormalizedData",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "ZipCenelecFiles",
+							"method": "POST",
+							"headers": {},
+							"body": {
+								"name": "cenelec"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureFunction17",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "ValidateHapiSource",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Get_Iec_Content",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-21.uksouth.logic.azure.com:443/workflows/1098dafc27cd42bfb195ae2f6dcf00b9/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=WDSaHzhRLjt2vOjO6hSt3PlW4OM6pQYOMWykCfD2kMU",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdo": "cenelec",
+								"projectXsdPath": "xsd/sdo/projects/harmonized-projects.xsd",
+								"publicationXsdPath": "xsd/sdo/publications/harmonized-publications.xsd"
+							}
+						}
+					},
+					{
+						"name": "Poke-Api",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Zip Files",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-18.uksouth.logic.azure.com:443/workflows/00e2fe031d8443079468a8648066d3e5/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=77EUGLgnyuORgx2KSPPoZdt6wFmHsx5OtS1O9uLSu8A",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoName": "cenelec",
+								"resourceUriProjects": "/iec:proj:62085",
+								"resourceUriPublications": "?projectUrn=iec:proj:62085"
+							}
+						}
+					}
+				],
+				"annotations": [],
+				"lastPublishTime": "2020-09-30T17:37:44Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Iec-Demo-Pipiline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Iec_Request",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-01.uksouth.logic.azure.com:443/workflows/187fd6c3e20641eaac70e0c55ea25c88/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=vX3UiFyKbxaR3h8gsb732onSjBCcMs467rhYlTHWF5Y",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"value": "@pipeline().globalParameters.IecRequestParameter",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Get_Iec_Content",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "AddOrphanPublications",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "Download_IEC_PublicationData",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"name": "iec"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureFunction13",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "AddOrphanProjects",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "Iec_Request",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "AddOrphanHAPIProject",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoDirectory": "iec",
+								"destinationContainer": "ingeststagingstore",
+								"sourceContainer": "ingeststagingstore",
+								"sdoAuthEndPoint": "https://api.iec.ch/oauth/client_credential/accesstoken?grant_type=client_credentials",
+								"sdoClientId": "NBuRlOpinFGLGUEofgVXeaZXXF1Dodi6",
+								"sdoSecret": "Htm5c1FC7LCguLN9",
+								"sdoDataEndPoint": "https://api.iec.ch/harmonized/projects"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureFunction3",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "AddOrphanPublications",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "AddOrphanProjects",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "AddOrphanHAPIPublication",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoDirectory": "iec",
+								"destinationContainer": "ingeststagingstore",
+								"sourceContainer": "ingeststagingstore",
+								"sdoAuthEndPoint": "https://api.iec.ch/oauth/client_credential/accesstoken?grant_type=client_credentials",
+								"sdoClientId": "NBuRlOpinFGLGUEofgVXeaZXXF1Dodi6",
+								"sdoSecret": "Htm5c1FC7LCguLN9",
+								"sdoDataEndPoint": "https://api.iec.ch/harmonized/publications"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureFunction4",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "TransformToNormalizedData",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "ValidateHapiSource",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-18.uksouth.logic.azure.com/workflows/2bd4ffb477e748a6b7262177af50210d/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=uMwdXiRFiwP_NkIAj97o17Q-DMYsyTzQGZGNAWfySsA",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoDirectory": "iec"
+							}
+						}
+					},
+					{
+						"name": "Zip Files",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "TransformToNormalizedData",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "ZipIecFiles",
+							"method": "POST",
+							"headers": {},
+							"body": {
+								"name": "iec"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureFunction8",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "ValidateHapiSource",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Get_Iec_Content",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-21.uksouth.logic.azure.com:443/workflows/1098dafc27cd42bfb195ae2f6dcf00b9/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=WDSaHzhRLjt2vOjO6hSt3PlW4OM6pQYOMWykCfD2kMU",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdo": "iec",
+								"projectXsdPath": "xsd/sdo/projects/harmonized-projects.xsd",
+								"publicationXsdPath": "xsd/sdo/publications/harmonized-publications.xsd"
+							}
+						}
+					},
+					{
+						"name": "Poke-Api",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Zip Files",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-18.uksouth.logic.azure.com:443/workflows/00e2fe031d8443079468a8648066d3e5/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=77EUGLgnyuORgx2KSPPoZdt6wFmHsx5OtS1O9uLSu8A",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoName": "iec",
+								"resourceUriProjects": "/iec:proj:62085",
+								"resourceUriPublications": "?projectUrn=iec:proj:62085"
+							}
+						}
+					}
+				],
+				"annotations": [],
+				"lastPublishTime": "2020-09-30T17:37:44Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Iso-Demo-Pipiline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Iso_Request",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-01.uksouth.logic.azure.com:443/workflows/187fd6c3e20641eaac70e0c55ea25c88/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=vX3UiFyKbxaR3h8gsb732onSjBCcMs467rhYlTHWF5Y",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"value": "@pipeline().parameters.requestParameter",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Get_Iso_Content",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "AddOrphanPublications",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "Download_ISO_PublicationData",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"name": "iso"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureFunction1",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "AddOrphanProjects",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "Iso_Request",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "AddOrphanHAPIProject",
+							"method": "POST",
+							"headers": {},
+							"body": {
+								"sdoDirectory": "iso",
+								"destinationContainer": "ingeststagingstore",
+								"sourceContainer": "ingeststagingstore",
+								"sdoAuthEndPoint": "https://api.iso.org/oauth/client_credential/accesstoken?grant_type=client_credentials",
+								"sdoClientId": "XkbKTqFdF2QaxU3yYV0ENmtV7nIeRpYD",
+								"sdoSecret": "bAdLnvU18nx5ZDyv",
+								"sdoDataEndPoint": "https://api.iso.org/harmonized/projects"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureFunction3",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "AddOrphanPublications",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "AddOrphanProjects",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "AddOrphanHAPIPublication",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoDirectory": "iso",
+								"destinationContainer": "ingeststagingstore",
+								"sourceContainer": "ingeststagingstore",
+								"sdoAuthEndPoint": "https://api.iso.org/oauth/client_credential/accesstoken?grant_type=client_credentials",
+								"sdoClientId": "XkbKTqFdF2QaxU3yYV0ENmtV7nIeRpYD",
+								"sdoSecret": "bAdLnvU18nx5ZDyv",
+								"sdoDataEndPoint": "https://api.iso.org/harmonized/publications"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureFunction4",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "TransformToNormalizedData",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "ValidateHapiSource",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-18.uksouth.logic.azure.com/workflows/2bd4ffb477e748a6b7262177af50210d/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=uMwdXiRFiwP_NkIAj97o17Q-DMYsyTzQGZGNAWfySsA",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoDirectory": "iso"
+							}
+						}
+					},
+					{
+						"name": "Zip Files",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [
+							{
+								"activity": "QualityCheck",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "ZipIsoFiles",
+							"method": "POST",
+							"headers": {},
+							"body": {
+								"name": "iso"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureFunction7",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "ValidateHapiSource",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Get_Iso_Content",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-21.uksouth.logic.azure.com:443/workflows/1098dafc27cd42bfb195ae2f6dcf00b9/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=WDSaHzhRLjt2vOjO6hSt3PlW4OM6pQYOMWykCfD2kMU",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdo": "iso",
+								"projectXsdPath": "xsd/sdo/projects/harmonized-projects.xsd",
+								"publicationXsdPath": "xsd/sdo/publications/harmonized-publications.xsd"
+							}
+						}
+					},
+					{
+						"name": "Poke-Api",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Zip Files",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-18.uksouth.logic.azure.com:443/workflows/00e2fe031d8443079468a8648066d3e5/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=77EUGLgnyuORgx2KSPPoZdt6wFmHsx5OtS1O9uLSu8A",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdo": "iso"
+							}
+						}
+					},
+					{
+						"name": "QualityCheck",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "TransformToNormalizedData",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-31.uksouth.logic.azure.com:443/workflows/1d2657978307432eafc4909ed5922d6d/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=fbFoGMABJfWmckFxSu2DKycmjUwgQQ36wVZkEBe4BGQ",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"sdoDirectory": "iso",
+								"configurationContainer": "configuration",
+								"normalisedXsdPath": "xsd/mm/ProjectProduct_Normalize_Feed_v1.1.xsd",
+								"qualityMarkerXslPath": "xslt/IngestMM/v1/schematron_validity.xsl",
+								"schematronXslPath": "xslt/IngestMM/v1/hapi_consolidated.xslt"
+							}
+						}
+					}
+				],
+				"parameters": {
+					"requestParameter": {
+						"type": "string",
+						"defaultValue": {
+							"sdoName": "iso",
+							"resourceUriProjects": "?lastChangeTimestampFrom=2016-10-05&size=5&page=0",
+							"resourceUriPublications": "?lastChangeTimestampFrom=2016-10-05&size=5&page=0"
+						}
+					}
+				},
+				"annotations": [],
+				"lastPublishTime": "2020-09-30T17:37:44Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ArmtemplateTestDatasetIn')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ArmtemplateStorageLinkedService",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "emp.txt",
+						"folderPath": "input",
+						"container": "blobovb3l52odgq34"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ArmtemplateTestDatasetOut')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ArmtemplateStorageLinkedService",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"folderPath": "output",
+						"container": "blobovb3l52odgq34"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Binary1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage5",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "test",
+						"folderPath": "Staging",
+						"fileSystem": "export"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Binary2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage6",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "iso/zipContent",
+						"fileSystem": "debug"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CEN_Projects_RestEndpoint')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_Cen_Projects",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {
+					"relativeUrl": ""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_Cen_Projects')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Cen_Publication')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage4",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Cen-Publications.json",
+						"folderPath": "Staging/Cen/Json",
+						"fileSystem": "export"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Cenelec_ProjectData')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Cenelec_Projects_Data",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Cenelec_Projects.json",
+						"folderPath": "Staging/Cenelec/Json",
+						"fileSystem": "export"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Cenelec_Publication')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "CenelecPublicationData",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Cenelec_Publication.json",
+						"folderPath": "Staging/cenelec/json",
+						"fileSystem": "export"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Cenelec_Publication_Uri')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_Cenelec_Publication_URI",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_Cenelec_Publication_URI')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Cenelec_Source_Uri')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_Cenelec_Rest_Uri",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_Cenelec_Rest_Uri')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DestinationDataset_b8r')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage3",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Iso",
+						"fileSystem": "export"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": {}
+			},
+			"dependsOn": []
+		}
+	]
+}

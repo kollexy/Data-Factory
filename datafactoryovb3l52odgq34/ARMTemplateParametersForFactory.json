@@ -1,0 +1,240 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "datafactoryovb3l52odgq34"
+		},
+		"ArmtemplateStorageLinkedService_connectionString": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage2_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage3_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage4_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage5_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage6_accountKey": {
+			"value": ""
+		},
+		"AzureFunction1_functionKey": {
+			"value": ""
+		},
+		"AzureFunction10_functionKey": {
+			"value": ""
+		},
+		"AzureFunction11_functionKey": {
+			"value": ""
+		},
+		"AzureFunction12_functionKey": {
+			"value": ""
+		},
+		"AzureFunction13_functionKey": {
+			"value": ""
+		},
+		"AzureFunction14_functionKey": {
+			"value": ""
+		},
+		"AzureFunction15_functionKey": {
+			"value": ""
+		},
+		"AzureFunction16_functionKey": {
+			"value": ""
+		},
+		"AzureFunction17_functionKey": {
+			"value": ""
+		},
+		"AzureFunction2_functionKey": {
+			"value": ""
+		},
+		"AzureFunction3_functionKey": {
+			"value": ""
+		},
+		"AzureFunction4_functionKey": {
+			"value": ""
+		},
+		"AzureFunction5_functionKey": {
+			"value": ""
+		},
+		"AzureFunction6_functionKey": {
+			"value": ""
+		},
+		"AzureFunction7_functionKey": {
+			"value": ""
+		},
+		"AzureFunction8_functionKey": {
+			"value": ""
+		},
+		"AzureFunction9_functionKey": {
+			"value": ""
+		},
+		"Cen_Content_Download_functionKey": {
+			"value": ""
+		},
+		"Cen_ProjectsData_accountKey": {
+			"value": ""
+		},
+		"CenelecPublicationData_accountKey": {
+			"value": ""
+		},
+		"Cenelec_Projects_Data_accountKey": {
+			"value": ""
+		},
+		"SourcePathofDataLakeForZip_accountKey": {
+			"value": ""
+		},
+		"ZipContentFiles_functionKey": {
+			"value": ""
+		},
+		"ZipFiles_functionKey": {
+			"value": ""
+		},
+		"cenelec_content_download_functionKey": {
+			"value": ""
+		},
+		"ls_ISO_Projects_Destination_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://bsiuksadlgen2dev.dfs.core.windows.net"
+		},
+		"AzureDataLakeStorage2_properties_typeProperties_url": {
+			"value": "https://bsiuksadlgen2dev.dfs.core.windows.net"
+		},
+		"AzureDataLakeStorage3_properties_typeProperties_url": {
+			"value": "https://bsiuksadlgen2dev.dfs.core.windows.net"
+		},
+		"AzureDataLakeStorage4_properties_typeProperties_url": {
+			"value": "https://bsiuksadlgen2dev.dfs.core.windows.net"
+		},
+		"AzureDataLakeStorage5_properties_typeProperties_url": {
+			"value": "https://bsiuksadlgen2dev.dfs.core.windows.net"
+		},
+		"AzureDataLakeStorage6_properties_typeProperties_url": {
+			"value": "https://bsiuksadlgen2dev.dfs.core.windows.net"
+		},
+		"AzureFunction1_properties_typeProperties_functionAppUrl": {
+			"value": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net/api/Download_ISO_PublicationData?code=vw0ixnAe0flCrGPZEaVoMuF7ty83ZMhbzuiDw59In5syPGYD4TKuMg=="
+		},
+		"AzureFunction10_properties_typeProperties_functionAppUrl": {
+			"value": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net"
+		},
+		"AzureFunction11_properties_typeProperties_functionAppUrl": {
+			"value": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net"
+		},
+		"AzureFunction12_properties_typeProperties_functionAppUrl": {
+			"value": "https://bsi-uks-funcapp-fmapp02.azurewebsites.net"
+		},
+		"AzureFunction13_properties_typeProperties_functionAppUrl": {
+			"value": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net"
+		},
+		"AzureFunction14_properties_typeProperties_functionAppUrl": {
+			"value": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net"
+		},
+		"AzureFunction15_properties_typeProperties_functionAppUrl": {
+			"value": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net"
+		},
+		"AzureFunction16_properties_typeProperties_functionAppUrl": {
+			"value": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net"
+		},
+		"AzureFunction17_properties_typeProperties_functionAppUrl": {
+			"value": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net"
+		},
+		"AzureFunction2_properties_typeProperties_functionAppUrl": {
+			"value": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net"
+		},
+		"AzureFunction3_properties_typeProperties_functionAppUrl": {
+			"value": "https://bsi-uks-funcapp-fmapp02.azurewebsites.net"
+		},
+		"AzureFunction4_properties_typeProperties_functionAppUrl": {
+			"value": "https://bsi-uks-funcapp-fmapp02.azurewebsites.net"
+		},
+		"AzureFunction5_properties_typeProperties_functionAppUrl": {
+			"value": "https://bsi-uks-funcapp-fmapp02.azurewebsites.net"
+		},
+		"AzureFunction6_properties_typeProperties_functionAppUrl": {
+			"value": "https://bsi-uks-funcapp-fmapp02.azurewebsites.net"
+		},
+		"AzureFunction7_properties_typeProperties_functionAppUrl": {
+			"value": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net"
+		},
+		"AzureFunction8_properties_typeProperties_functionAppUrl": {
+			"value": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net"
+		},
+		"AzureFunction9_properties_typeProperties_functionAppUrl": {
+			"value": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net"
+		},
+		"Cen_Content_Download_properties_typeProperties_functionAppUrl": {
+			"value": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net"
+		},
+		"Cen_ProjectsData_properties_typeProperties_url": {
+			"value": "https://bsiuksadlgen2dev.dfs.core.windows.net"
+		},
+		"CenelecPublicationData_properties_typeProperties_url": {
+			"value": "https://bsiuksadlgen2dev.dfs.core.windows.net"
+		},
+		"Cenelec_Projects_Data_properties_typeProperties_url": {
+			"value": "https://bsiuksadlgen2dev.dfs.core.windows.net"
+		},
+		"HttpServer1_properties_typeProperties_url": {
+			"value": "https://api.iso.org/harmonized/projects"
+		},
+		"HttpServer2_properties_typeProperties_url": {
+			"value": "https://api-test.iso.org/harmonized/projects"
+		},
+		"ISO_Publication_RestEndPoint_properties_typeProperties_url": {
+			"value": "https://api.iso.org/harmonized/publications"
+		},
+		"Iso_properties_typeProperties_url": {
+			"value": "https://api.iso.org/harmonized/projects"
+		},
+		"PublicationDataLink_properties_typeProperties_url": {
+			"value": "https://api.iso.org/harmonized/publications"
+		},
+		"RestService1_properties_typeProperties_url": {
+			"value": "https://api.cen.eu/harmonized/publications"
+		},
+		"SourcePathofDataLakeForZip_properties_typeProperties_url": {
+			"value": "https://bsiuksadlgen2dev.dfs.core.windows.net"
+		},
+		"TestingRest_properties_typeProperties_url": {
+			"value": "http://dummy.restapiexample.com/api/v1/employees"
+		},
+		"ZipContentFiles_properties_typeProperties_functionAppUrl": {
+			"value": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net"
+		},
+		"ZipFiles_properties_typeProperties_functionAppUrl": {
+			"value": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net"
+		},
+		"cenelec_content_download_properties_typeProperties_functionAppUrl": {
+			"value": "https://bsi-uks-funcapp-fmapp01.azurewebsites.net"
+		},
+		"downloadPdf_properties_typeProperties_url": {
+			"value": "https://data.iso.org/publications/std/dms/89739122"
+		},
+		"ls_Cen_Projects_properties_typeProperties_url": {
+			"value": "https://api.cen.eu/harmonized/projects"
+		},
+		"ls_Cenelec_Publication_URI_properties_typeProperties_url": {
+			"value": "https://api.cenelec.eu/harmonized/publications"
+		},
+		"ls_Cenelec_Rest_Uri_properties_typeProperties_url": {
+			"value": "https://api.cenelec.eu/harmonized/publications"
+		},
+		"ls_ISO_All_Projects_Uri_properties_typeProperties_url": {
+			"value": "https://api.iso.org/harmonized/projects"
+		},
+		"ls_ISO_Projects_Destination_properties_typeProperties_url": {
+			"value": "https://bsiuksadlgen2dev.dfs.core.windows.net"
+		}
+	}
+}
