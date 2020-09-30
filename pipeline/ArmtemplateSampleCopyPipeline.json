@@ -1,8 +1,0 @@
-{
-	"name": "ArmtemplateSampleCopyPipeline",
-	"properties": {
-		"annotations": [],
-		"lastPublishTime": "2020-09-30T17:37:45Z"
-	},
-	"type": "Microsoft.DataFactory/factories/pipelines"
-}
