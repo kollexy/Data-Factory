@@ -1,0 +1,20 @@
+{
+	"name": "ISO_Publication_Json",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_ISO_Projects_Destination",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Iso_Publications.Json",
+				"folderPath": "Staging/ISO/Json",
+				"fileSystem": "export"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

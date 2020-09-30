@@ -1,0 +1,40 @@
+{
+	"name": "datafactoryovb3l52odgq34",
+	"properties": {
+		"globalParameters": {
+			"IsoRequestParameter": {
+				"type": "string",
+				"value": {
+					"sdoName": "iso",
+					"resourceUriProjects": "?lastChangeTimestampFrom=2016-10-05&size=5&page=0",
+					"resourceUriPublications": "?lastChangeTimestampFrom=2016-10-05&size=5&page=0"
+				}
+			},
+			"IecRequestParameter": {
+				"type": "string",
+				"value": {
+					"sdoName": "iec",
+					"resourceUriProjects": "?lastChangeTimestampFrom=2016-10-05&size=5&page=0",
+					"resourceUriPublications": "?lastChangeTimestampFrom=2016-10-05&size=5&page=0"
+				}
+			},
+			"CenRequestParameter": {
+				"type": "string",
+				"value": {
+					"sdoName": "cen",
+					"resourceUriProjects": "?lastChangeTimestampFrom=2016-10-05&size=5&page=0",
+					"resourceUriPublications": "?lastChangeTimestampFrom=2016-10-05&size=5&page=0"
+				}
+			},
+			"cenelecRequestParameter": {
+				"type": "string",
+				"value": {
+					"sdoName": "cenelec",
+					"resourceUriProjects": "?lastChangeTimestampFrom=2016-10-05&size=5&page=0",
+					"resourceUriPublications": "?lastChangeTimestampFrom=2016-10-05&size=5&page=0"
+				}
+			}
+		}
+	},
+	"location": "uksouth"
+}

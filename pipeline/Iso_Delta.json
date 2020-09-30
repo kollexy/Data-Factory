@@ -1,0 +1,8 @@
+{
+	"name": "Iso_Delta",
+	"properties": {
+		"annotations": [],
+		"lastPublishTime": "2020-09-30T17:37:44Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

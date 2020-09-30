@@ -1,0 +1,13 @@
+{
+	"name": "SourceDataset_b8r",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "TestingRest",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

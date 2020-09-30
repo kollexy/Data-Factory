@@ -1,0 +1,14 @@
+{
+	"name": "ls_ISO_All_Projects_Uri",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "Source Uri to get projects data from ISO ",
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://api.iso.org/harmonized/projects",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}

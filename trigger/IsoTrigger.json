@@ -1,0 +1,24 @@
+{
+	"name": "IsoTrigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "Iso-Demo-Pipiline",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Hour",
+				"interval": 1,
+				"startTime": "2020-09-24T14:38:00Z",
+				"timeZone": "UTC"
+			}
+		}
+	}
+}

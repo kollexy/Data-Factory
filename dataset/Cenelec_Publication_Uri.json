@@ -1,0 +1,13 @@
+{
+	"name": "Cenelec_Publication_Uri",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_Cenelec_Publication_URI",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

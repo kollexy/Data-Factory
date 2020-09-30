@@ -1,0 +1,20 @@
+{
+	"name": "Cen_Publication",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage4",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Cen-Publications.json",
+				"folderPath": "Staging/Cen/Json",
+				"fileSystem": "export"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

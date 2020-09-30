@@ -1,0 +1,14 @@
+{
+	"name": "ISO_Publication_RestEndPoint",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "Iso Publication data",
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://api.iso.org/harmonized/publications",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}

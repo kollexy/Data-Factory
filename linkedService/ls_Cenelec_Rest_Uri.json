@@ -1,0 +1,13 @@
+{
+	"name": "ls_Cenelec_Rest_Uri",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://api.cenelec.eu/harmonized/publications",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}

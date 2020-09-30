@@ -1,0 +1,14 @@
+{
+	"name": "Iso",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "Iso api with user name and password",
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://api.iso.org/harmonized/projects",
+			"enableServerCertificateValidation": false,
+			"authenticationType": "Anonymous"
+		}
+	}
+}

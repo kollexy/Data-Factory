@@ -1,0 +1,13 @@
+{
+	"name": "ISO_Projects_RestEndpoint",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_ISO_All_Projects_Uri",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

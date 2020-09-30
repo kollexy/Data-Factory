@@ -1,0 +1,22 @@
+{
+	"name": "SourceDataToZip",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SourcePathofDataLakeForZip",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "iso/content",
+				"fileSystem": "debug"
+			},
+			"compression": {
+				"type": "ZipDeflate"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

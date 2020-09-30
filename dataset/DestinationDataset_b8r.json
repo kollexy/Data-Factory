@@ -1,0 +1,22 @@
+{
+	"name": "DestinationDataset_b8r",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage3",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Iso",
+				"fileSystem": "export"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

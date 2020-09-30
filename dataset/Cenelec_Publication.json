@@ -1,0 +1,20 @@
+{
+	"name": "Cenelec_Publication",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "CenelecPublicationData",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Cenelec_Publication.json",
+				"folderPath": "Staging/cenelec/json",
+				"fileSystem": "export"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

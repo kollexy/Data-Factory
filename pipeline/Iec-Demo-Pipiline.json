@@ -1,0 +1,273 @@
+{
+	"name": "Iec-Demo-Pipiline",
+	"properties": {
+		"activities": [
+			{
+				"name": "Iec_Request",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-01.uksouth.logic.azure.com:443/workflows/187fd6c3e20641eaac70e0c55ea25c88/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=vX3UiFyKbxaR3h8gsb732onSjBCcMs467rhYlTHWF5Y",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"value": "@pipeline().globalParameters.IecRequestParameter",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Get_Iec_Content",
+				"type": "AzureFunctionActivity",
+				"dependsOn": [
+					{
+						"activity": "AddOrphanPublications",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"functionName": "Download_IEC_PublicationData",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"name": "iec"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureFunction13",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "AddOrphanProjects",
+				"type": "AzureFunctionActivity",
+				"dependsOn": [
+					{
+						"activity": "Iec_Request",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"functionName": "AddOrphanHAPIProject",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"sdoDirectory": "iec",
+						"destinationContainer": "ingeststagingstore",
+						"sourceContainer": "ingeststagingstore",
+						"sdoAuthEndPoint": "https://api.iec.ch/oauth/client_credential/accesstoken?grant_type=client_credentials",
+						"sdoClientId": "NBuRlOpinFGLGUEofgVXeaZXXF1Dodi6",
+						"sdoSecret": "Htm5c1FC7LCguLN9",
+						"sdoDataEndPoint": "https://api.iec.ch/harmonized/projects"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureFunction3",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "AddOrphanPublications",
+				"type": "AzureFunctionActivity",
+				"dependsOn": [
+					{
+						"activity": "AddOrphanProjects",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"functionName": "AddOrphanHAPIPublication",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"sdoDirectory": "iec",
+						"destinationContainer": "ingeststagingstore",
+						"sourceContainer": "ingeststagingstore",
+						"sdoAuthEndPoint": "https://api.iec.ch/oauth/client_credential/accesstoken?grant_type=client_credentials",
+						"sdoClientId": "NBuRlOpinFGLGUEofgVXeaZXXF1Dodi6",
+						"sdoSecret": "Htm5c1FC7LCguLN9",
+						"sdoDataEndPoint": "https://api.iec.ch/harmonized/publications"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureFunction4",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "TransformToNormalizedData",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "ValidateHapiSource",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-18.uksouth.logic.azure.com/workflows/2bd4ffb477e748a6b7262177af50210d/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=uMwdXiRFiwP_NkIAj97o17Q-DMYsyTzQGZGNAWfySsA",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"sdoDirectory": "iec"
+					}
+				}
+			},
+			{
+				"name": "Zip Files",
+				"type": "AzureFunctionActivity",
+				"dependsOn": [
+					{
+						"activity": "TransformToNormalizedData",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"functionName": "ZipIecFiles",
+					"method": "POST",
+					"body": {
+						"name": "iec"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureFunction8",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "ValidateHapiSource",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Get_Iec_Content",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-21.uksouth.logic.azure.com:443/workflows/1098dafc27cd42bfb195ae2f6dcf00b9/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=WDSaHzhRLjt2vOjO6hSt3PlW4OM6pQYOMWykCfD2kMU",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"sdo": "iec",
+						"projectXsdPath": "xsd/sdo/projects/harmonized-projects.xsd",
+						"publicationXsdPath": "xsd/sdo/publications/harmonized-publications.xsd"
+					}
+				}
+			},
+			{
+				"name": "Poke-Api",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Zip Files",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-18.uksouth.logic.azure.com:443/workflows/00e2fe031d8443079468a8648066d3e5/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=77EUGLgnyuORgx2KSPPoZdt6wFmHsx5OtS1O9uLSu8A",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"sdoName": "iec",
+						"resourceUriProjects": "/iec:proj:62085",
+						"resourceUriPublications": "?projectUrn=iec:proj:62085"
+					}
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2020-09-30T17:37:44Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

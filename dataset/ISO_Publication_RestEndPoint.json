@@ -1,0 +1,13 @@
+{
+	"name": "ISO_Publication_RestEndPoint",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ISO_Publication_RestEndPoint",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
