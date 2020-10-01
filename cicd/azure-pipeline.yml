@@ -45,11 +45,7 @@ steps:
   displayName: 'Extract ARM - ADF Pipelines'
   enabled: true
 
-  Step 3: Debugging - print the output of the command tree of artifacts folder
-- powershell: |
-    tree "$(build.artifactstagingdirectory)" /F
-  displayName: "Debug: Show a directory tree"
-# Step 4: Deploy a blank Azure Data Factory instance using ARM templates
+
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
     deploymentScope: 'Resource Group'
