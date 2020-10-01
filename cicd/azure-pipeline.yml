@@ -54,8 +54,8 @@ steps:
     resourceGroupName: 'devtest-rg'
     location: 'uk south'
     templateLocation: 'Linked artifact'
-    csmFile: '$(build.artifactstagingdirectory)\arm\template.json'
-    csmParametersFile: '$(build.artifactstagingdirectory)\arm\parameters.json'
+    csmFile: '$(build.artifactstagingdirectory)\resources\arm\template.json'
+    csmParametersFile: '$(build.artifactstagingdirectory)\resources\arm\parameters.json'
     overrideParameters: '-name "df-$(ProductName)'
     deploymentMode: 'Incremental'
   displayName: Deploy ADF Service
