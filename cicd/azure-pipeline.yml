@@ -50,15 +50,15 @@ steps:
   inputs:
     deploymentScope: 'Resource Group'
     azureResourceManagerConnection: 'azuresp'
+    subscriptionId: '7f03a671-a521-4820-beae-5f637be7ebbd'
     action: 'Create Or Update Resource Group'
     resourceGroupName: 'devtest-rg'
     location: 'uk south'
     templateLocation: 'Linked artifact'
-    csmFile: '$(System.DefaultWorkingDirectory)/_kollexy_Data-Factory/resources/arm/template.json'
-    csmParametersFile: '$(System.DefaultWorkingDirectory)/_kollexy_Data-Factory/resources/arm/parameters.json'
+    csmFile: '$(build.artifactstagingdirectory)\arm\template.json'
+    csmParametersFile: '$(build.artifactstagingdirectory)\arm\parameters.json'
     overrideParameters: '-name "df-$(ProductName)'
     deploymentMode: 'Incremental'
-   
   displayName: Deploy ADF Service
   enabled: true
   # Step 5: Deploy Azure Data Factory Objects like pipelines, dataflows using ARM templates that ADF generate during each publish event
