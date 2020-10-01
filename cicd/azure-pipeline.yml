@@ -55,8 +55,8 @@ steps:
     resourceGroupName: 'devtest-rg'
     location: 'uk south'
     templateLocation: 'Linked artifact'
-    csmFile: '$(build.artifactstagingdirectory)\arm\template.json'
-    csmParametersFile: '$(build.artifactstagingdirectory)\arm\parameters.json'
+    csmFile: '$(System.DefaultWorkingDirectory)/_kollexy_Data-Factory/resources/arm/template.json'
+    csmParametersFile: '$(System.DefaultWorkingDirectory)/_kollexy_Data-Factory/resources/arm/parameters.json'
     overrideParameters: '-name "df-$(ProductName)'
     deploymentMode: 'Incremental'
   displayName: Deploy ADF Service
