@@ -53,10 +53,10 @@ steps:
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
     deploymentScope: 'Resource Group'
-    azureResourceManagerConnection: '$(Subscription)'
+    azureResourceManagerConnection: 'azuresp'
     action: 'Create Or Update Resource Group'
     resourceGroupName: 'rg-$(ProductName)-$(Environment)'
-    location: 'West Europe'
+    location: 'uk south'
     templateLocation: 'Linked artifact'
     csmFile: '$(build.artifactstagingdirectory)\arm\template.json'
     csmParametersFile: '$(build.artifactstagingdirectory)\arm\parameters.json'
@@ -68,10 +68,10 @@ steps:
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
     deploymentScope: 'Resource Group'
-    azureResourceManagerConnection: '$(Subscription)'
+    azureResourceManagerConnection: 'azuresp'
     action: 'Create Or Update Resource Group'
     resourceGroupName: 'rg-$(ProductName)-$(Environment)'
-    location: 'West Europe'
+    location: 'uk south'
     templateLocation: 'Linked artifact'
     csmFile: '$(build.artifactstagingdirectory)\adf_publish\ARMTemplateForFactory.json'
     csmParametersFile: '$(build.artifactstagingdirectory)\adf_publish\ARMTemplateParametersForFactory.json'
