@@ -14,7 +14,7 @@ trigger:
       - "*"
 # Adjust variables, set a dummy product name, environment and a name of the subscription
 variables:
-   ProductName: "azdo-datafactory"
+   ProductName: "absiukuatdatafactory"
 # The build agent is based on Windows OS. 
 # Linux agents have some differences in available commands and folder paths expressions, etc
 pool:
